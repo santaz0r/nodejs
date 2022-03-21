@@ -29,17 +29,20 @@ async function printNotes() {
     console.log(chalk.blue(`${note.id} ${note.title}`));
   });
 }
+async function saveNotes(notes) {
+  await fs.writeFile(notesPath, JSON.stringify(notes));
+}
 
 async function removeNote(id) {
   const notes = await getNotes();
+  const removedArr = notes.filter((note) => note.id !== id);
+  await saveNotes(removedArr);
   console.log(chalk.bgRed("Note removed!"));
-
-  const removedArr = notes.filter((note) => note.id !== JSON.stringify(id));
-  await fs.writeFile(notesPath, JSON.stringify(removedArr));
 }
 
 module.exports = {
   addNote,
   printNotes,
   removeNote,
+  getNotes,
 };
