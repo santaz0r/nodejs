@@ -40,9 +40,27 @@ async function removeNote(id) {
   console.log(chalk.bgRed("Note removed!"));
 }
 
+async function editNote(titleId, data) {
+  const notes = await getNotes();
+  notes.filter((note) => {
+    if (note.id === titleId) {
+      return (newNote = {
+        title: data.data,
+        id: titleId,
+      });
+    }
+  });
+  const updatedNotesList = notes.map((note) => {
+    return note.id === newNote.id ? newNote : note;
+  });
+  await saveNotes(updatedNotesList);
+  console.log(chalk.yellow("Note updated!"));
+}
+
 module.exports = {
   addNote,
   printNotes,
   removeNote,
   getNotes,
+  editNote,
 };
