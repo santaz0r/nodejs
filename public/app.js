@@ -11,7 +11,9 @@ document.addEventListener("click", (event) => {
 
     const data = prompt("Введите новое название").trim();
     if (data !== null && data !== "") {
-      edit(id, { data });
+      edit(id, { data }).then(() => {
+        event.target.closest("li").querySelector("span").innerText = data;
+      });
     }
   }
 });
@@ -24,6 +26,7 @@ async function edit(id, data) {
   await fetch(`/${id}`, {
     method: "PUT",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
