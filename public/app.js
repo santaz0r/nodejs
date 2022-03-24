@@ -7,12 +7,11 @@ document.addEventListener("click", (event) => {
   }
   if (event.target.dataset.type === "edit") {
     const id = event.target.dataset.id;
-    console.log("from edit", id);
-
-    const data = prompt("Введите новое название").trim();
-    if (data !== null && data !== "") {
-      edit(id, { data }).then(() => {
-        event.target.closest("li").querySelector("span").innerText = data;
+    const title = event.target.dataset.title;
+    const newTitle = prompt("Введите новое название", title);
+    if (newTitle !== null) {
+      edit({ id, title: newTitle }).then(() => {
+        event.target.closest("li").querySelector("span").innerText = newTitle;
       });
     }
   }
@@ -22,13 +21,13 @@ async function remove(id) {
   await fetch(`/${id}`, { method: "DELETE" });
 }
 
-async function edit(id, data) {
-  await fetch(`/${id}`, {
+async function edit(newNote) {
+  await fetch(`/${newNote.id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(newNote),
   });
 }

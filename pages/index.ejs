@@ -26,7 +26,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span><%= notes[i].title %></span> 
                     <div>
-                        <button class="btn btn-primary" data-id="<%= notes[i].id %>" type="submit" data-type="edit">Редактировать</button>
+                        <button class="btn btn-primary" data-id="<%= notes[i].id %>" data-title="<%= notes[i].title %>" type="submit" data-type="edit">Редактировать</button>
                         <button class="btn btn-danger" data-id="<%= notes[i].id %>" type="submit" data-type="remove">&times;</button>
                     </div>
                     
